@@ -1,0 +1,31 @@
+{
+  "name": "simple-doughnut-chart",
+  "version": "1.0.0",
+  "description": "doughnut chart",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/yjh30/simple-doughnut-chart.git"
+  },
+  "keywords": [
+    "doughnut",
+    "chart"
+  ],
+  "author": "yangjunhua",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yjh30/simple-doughnut-chart/issues"
+  },
+  "homepage": "https://github.com/yjh30/simple-doughnut-chart#readme",
+  "devDependencies": {
+    "cz-conventional-changelog": "^2.1.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
