@@ -102,10 +102,11 @@ DoughnutChart.prototype = {
         this.ctx.lineWidth = this.options.dashHeight;
         this.ctx.lineCap = 'round';
 
+        var verticalPos = this.options.text === '' ? this.radius : this.radius - this.options.activeTextSize / 2;
         var drawItem = function(ctx, startPos, endPos, drawCount) {
             ctx.beginPath();
-            ctx.moveTo(startPos, this.radius - this.options.activeTextSize / 2);
-            ctx.lineTo(endPos, this.radius - this.options.activeTextSize / 2);
+            ctx.moveTo(startPos, verticalPos);
+            ctx.lineTo(endPos, verticalPos);
             ctx.stroke();
 
             if (--drawCount > 0) {
@@ -155,11 +156,13 @@ DoughnutChart.prototype = {
     },
 
     drawPercentageText: function(percentage) {
+        var verticalPos = this.options.text === '' ? this.radius : this.radius - this.options.activeTextSize / 2;
+
         this.ctx.beginPath();
         this.ctx.font = this.options.activeTextSize + 'px MicrosoftYaHeiUI';
         this.ctx.fillStyle = this.options.activeColor;
         this.ctx.closePath();
-        this.ctx.fillText(percentage + '%', this.radius, this.radius - this.options.activeTextSize / 2);
+        this.ctx.fillText(percentage + '%', this.radius, verticalPos);
     },
 
     drawActiveDoughnut: function(percentage) {
