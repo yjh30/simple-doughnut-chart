@@ -33,6 +33,7 @@ new DoughnutChart(document.getElementById('canvas'), {
     dashHeight: 4,              // 破折号高
     dashMargin: 6,              // 破折号之间的间隔
     dashLength: 3               // 破折号个数
+    dashColor: 3               // 破折号颜色
 });
 ```
 

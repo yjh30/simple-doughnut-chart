@@ -32,6 +32,7 @@ function getIeVersion() {
  * @param  {Number} options.dashHeight 破折号高
  * @param  {Number} options.dashMargin 破折号之间的间隔
  * @param  {Number} options.dashLength 破折号个数
+ * @param  {String} options.dashColor 破折号颜色
  */
 
 function DoughnutChart(canvas, options) {
@@ -101,6 +102,7 @@ DoughnutChart.prototype = {
     drawDash: function() {
         this.ctx.lineWidth = this.options.dashHeight;
         this.ctx.lineCap = 'round';
+        this.ctx.strokeStyle = this.options.dashColor;
 
         var verticalPos = this.options.text === '' ? this.radius : this.radius - this.options.activeTextSize / 2;
         var drawItem = function(ctx, startPos, endPos, drawCount) {
