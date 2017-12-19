@@ -26,6 +26,7 @@ function getIeVersion() {
  * @param  {String} options.defaultTextColor 默认文本颜色
  * @param  {String} options.activeColor 圆环激活颜色
  * @param  {Number} options.percentage 百分比
+ * @param  {Number} options.decimalPointDigit 保留的小数点位数
  * @param  {String} options.text 文本
  * @param  {Number} options.duration 动画持续时间
  * @param  {Number} options.dashWidth (百分比占位符)破折号宽
@@ -53,10 +54,12 @@ function DoughnutChart(canvas, options) {
         dashWidth: 12,
         dashHeight: 4,
         dashMargin: 6,
-        dashLength: 3
+        dashLength: 3,
+        decimalPointDigit: 0
     };
     this.options = extend(this.options, options || {});
     this.ieVersion = getIeVersion();
+    this.options.percentage = this.toFixed(this.options.percentage);
     this.adjustSize(this.options);
 
     this.initStyle();
@@ -146,15 +149,20 @@ DoughnutChart.prototype = {
             this.requestAnimationFrame(function frame() {
                 self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height);
                 var percentage = Math.min(self.options.percentage / 100, (Date.now() - startTime) / self.options.duration) * 100;
-                percentage = percentage.toFixed(0);
+                percentage = percentage.toFixed(self.options.decimalPointDigit);
 
-                draw(percentage);
+                draw(Math.min(percentage, self.options.percentage));
 
                 if (percentage < self.options.percentage) {
                     self.requestAnimationFrame(frame);
                 }
             });
         }
+    },
+
+    toFixed(num) {
+        const power = Math.pow(10, this.options.decimalPointDigit);
+        return parseInt(num * power, 10) / power;
     },
 
     drawPercentageText: function(percentage) {

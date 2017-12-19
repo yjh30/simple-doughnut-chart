@@ -1,3 +1,4 @@
+
 # simple doughnut chart
 
 ## 安装
@@ -27,6 +28,7 @@ new DoughnutChart(document.getElementById('canvas'), {
     defaultTextColor: '#ccc',   // 默认文本颜色
     activeColor: '#13b0df',     // 圆环激活颜色
     percentage: 88,             // 百分比，text不传或值为空字符串，则居中显示
+    decimalPointDigit: 0,       // 保留的小数点位数，默认为0
     text: '正确率',              // 文本
     duration: 1500,             // 动画持续时间
     dashWidth: 12,              // (百分比占位符)破折号宽
