@@ -160,7 +160,7 @@ DoughnutChart.prototype = {
         }
     },
 
-    toFixed(num) {
+    toFixed: function(num) {
         var power = Math.pow(10, this.options.decimalPointDigit);
         return parseInt(num * power, 10) / power;
     },
