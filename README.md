@@ -27,6 +27,7 @@ new DoughnutChart(document.getElementById('canvas'), {
     defaultColor: '#eee',       // 圆环默认颜色
     defaultTextColor: '#ccc',   // 默认文本颜色
     activeColor: '#13b0df',     // 圆环激活颜色
+    percentageColor: '#13b0df', // 百分比文字颜色，如果未传，则为圆环激活颜色
     percentage: 88,             // 百分比，text不传或值为空字符串，则居中显示
     decimalPointDigit: 0,       // 保留的小数点位数，默认为0
     text: '正确率',              // 文本
@@ -34,7 +35,7 @@ new DoughnutChart(document.getElementById('canvas'), {
     dashWidth: 12,              // (百分比占位符)破折号宽
     dashHeight: 4,              // 破折号高
     dashMargin: 6,              // 破折号之间的间隔
-    dashLength: 3               // 破折号个数
+    dashLength: 3,               // 破折号个数
     dashColor: 3               // 破折号颜色
 });
 ```

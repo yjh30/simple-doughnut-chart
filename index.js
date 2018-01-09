@@ -25,6 +25,7 @@ function getIeVersion() {
  * @param  {String} options.defaultColor 圆环默认颜色
  * @param  {String} options.defaultTextColor 默认文本颜色
  * @param  {String} options.activeColor 圆环激活颜色
+ * @param  {String} options.percentageColor 百分比文字颜色，如果未传，则为圆环激活颜色
  * @param  {Number} options.percentage 百分比
  * @param  {Number} options.decimalPointDigit 保留的小数点位数
  * @param  {String} options.text 文本
@@ -170,7 +171,7 @@ DoughnutChart.prototype = {
 
         this.ctx.beginPath();
         this.ctx.font = this.options.activeTextSize + 'px MicrosoftYaHeiUI';
-        this.ctx.fillStyle = this.options.activeColor;
+        this.ctx.fillStyle = this.options.percentageColor || this.options.activeColor;
         this.ctx.closePath();
         this.ctx.fillText(percentage + '%', this.radius, verticalPos);
     },
