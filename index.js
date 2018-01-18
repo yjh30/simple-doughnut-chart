@@ -162,9 +162,9 @@ DoughnutChart.prototype = {
     },
 
     toFixed: function(num) {
-        const decimalPointDigit = this.options.decimalPointDigit;
-        const forceDecimalPointDigit = this.options.forceDecimalPointDigit;
-        let pointDigit = decimalPointDigit;
+        var decimalPointDigit = this.options.decimalPointDigit;
+        var forceDecimalPointDigit = this.options.forceDecimalPointDigit;
+        var pointDigit = decimalPointDigit;
 
         if (forceDecimalPointDigit >= 0 && decimalPointDigit !== forceDecimalPointDigit) {
             pointDigit = forceDecimalPointDigit;
