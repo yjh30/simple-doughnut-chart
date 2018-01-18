@@ -30,7 +30,7 @@ new DoughnutChart(document.getElementById('canvas'), {
     percentageColor: '#13b0df', // 百分比文字颜色，如果未传，则为圆环激活颜色
     percentage: 88,             // 百分比，text不传或值为空字符串，则居中显示
     decimalPointDigit: 0,       // 保留的小数点位数，默认为0，如果小数点末尾为0，则不显示
-    forceDecimalPointDigit: 0,  // 强制保留的小数点位数，默认为0，如果小数点末尾为0，也将显示
+    forceDecimalPointDigit: -1,  // 强制保留的小数点位数，默认为-1，不做强制处理，当值设置大于等于0时，且百分比小数点末尾为0，也将显示，将会覆盖decimalPointDigit的值
     text: '正确率',              // 文本
     duration: 1500,             // 动画持续时间
     dashWidth: 12,              // (百分比占位符)破折号宽

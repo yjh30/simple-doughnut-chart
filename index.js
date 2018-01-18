@@ -28,7 +28,7 @@ function getIeVersion() {
  * @param  {String} options.percentageColor 百分比文字颜色，如果未传，则为圆环激活颜色
  * @param  {Number} options.percentage 百分比
  * @param  {Number} options.decimalPointDigit 保留的小数点位数，默认为0，如果小数点末尾为0，则不显示
- * @param  {Number} options.forceDecimalPointDigit 强制保留的小数点位数，默认为0，如果小数点末尾为0，也将显示
+ * @param  {Number} options.forceDecimalPointDigit // 强制保留的小数点位数，默认为-1，不做强制处理，当值设置大于等于0时，且百分比小数点末尾为0，也将显示，将会覆盖decimalPointDigit的值
  * @param  {String} options.text 文本
  * @param  {Number} options.duration 动画持续时间
  * @param  {Number} options.dashWidth (百分比占位符)破折号宽
@@ -58,11 +58,10 @@ function DoughnutChart(canvas, options) {
         dashMargin: 6,
         dashLength: 3,
         decimalPointDigit: 0,
-        forceDecimalPointDigit: 0
+        forceDecimalPointDigit: -1
     };
     this.options = extend(this.options, options || {});
     this.ieVersion = getIeVersion();
-    this.options.percentage = this.toFixed(this.options.percentage);
     this.adjustSize(this.options);
 
     this.initStyle();
@@ -146,15 +145,14 @@ DoughnutChart.prototype = {
         };
 
         if (this.ieVersion && this.ieVersion < 9) {
-            draw(this.options.percentage);
+            draw( this.toFixed(this.options.percentage) );
         } else {
             var startTime = Date.now();
             this.requestAnimationFrame(function frame() {
                 self.ctx.clearRect(0, 0, self.canvas.width, self.canvas.height);
                 var percentage = Math.min(self.options.percentage / 100, (Date.now() - startTime) / self.options.duration) * 100;
-                percentage = percentage.toFixed(self.options.decimalPointDigit);
 
-                draw(Math.min(percentage, self.options.percentage));
+                draw( self.toFixed(Math.min(percentage, self.options.percentage)) );
 
                 if (percentage < self.options.percentage) {
                     self.requestAnimationFrame(frame);
@@ -164,8 +162,24 @@ DoughnutChart.prototype = {
     },
 
     toFixed: function(num) {
-        var power = Math.pow(10, this.options.forceDecimalPointDigit || this.options.decimalPointDigit);
-        return parseInt(num * power, 10) / power;
+        const decimalPointDigit = this.options.decimalPointDigit;
+        const forceDecimalPointDigit = this.options.forceDecimalPointDigit;
+        let pointDigit = decimalPointDigit;
+
+        if (forceDecimalPointDigit >= 0 && decimalPointDigit !== forceDecimalPointDigit) {
+            pointDigit = forceDecimalPointDigit;
+        }
+
+        var power = Math.pow(10, pointDigit);
+        var num = parseInt(num * power, 10) / power;
+
+        if (forceDecimalPointDigit >= 0) {
+            var digitStr = num.toString().split('.')[1];
+            if (typeof digitStr === 'undefined' || digitStr.length < forceDecimalPointDigit) {
+                return num.toFixed(pointDigit);
+            }
+        }
+        return num;
     },
 
     drawPercentageText: function(percentage) {
