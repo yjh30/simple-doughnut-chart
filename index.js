@@ -27,7 +27,8 @@ function getIeVersion() {
  * @param  {String} options.activeColor 圆环激活颜色
  * @param  {String} options.percentageColor 百分比文字颜色，如果未传，则为圆环激活颜色
  * @param  {Number} options.percentage 百分比
- * @param  {Number} options.decimalPointDigit 保留的小数点位数
+ * @param  {Number} options.decimalPointDigit 保留的小数点位数，默认为0，如果小数点末尾为0，则不显示
+ * @param  {Number} options.forceDecimalPointDigit 强制保留的小数点位数，默认为0，如果小数点末尾为0，也将显示
  * @param  {String} options.text 文本
  * @param  {Number} options.duration 动画持续时间
  * @param  {Number} options.dashWidth (百分比占位符)破折号宽
@@ -56,7 +57,8 @@ function DoughnutChart(canvas, options) {
         dashHeight: 4,
         dashMargin: 6,
         dashLength: 3,
-        decimalPointDigit: 0
+        decimalPointDigit: 0,
+        forceDecimalPointDigit: 0
     };
     this.options = extend(this.options, options || {});
     this.ieVersion = getIeVersion();
@@ -162,7 +164,7 @@ DoughnutChart.prototype = {
     },
 
     toFixed: function(num) {
-        var power = Math.pow(10, this.options.decimalPointDigit);
+        var power = Math.pow(10, this.options.forceDecimalPointDigit || this.options.decimalPointDigit);
         return parseInt(num * power, 10) / power;
     },
 
