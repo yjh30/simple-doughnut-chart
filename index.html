@@ -8,7 +8,7 @@
     <!--[if IE]><script type="text/javascript" src="../excanvas.js"></script><![endif]-->
     <style>
         * { margin: 0; padding: 0; }
-        canvas { margin: 100px; width: 150px; height: 150px; }
+        canvas { margin: 100px; width: 120px; height: 120px; }
     </style>
 </head>
 <body>
@@ -17,16 +17,21 @@
     <script src="./index.js"></script>
     <script>
         new DoughnutChart(document.getElementById('canvas'), {
+            textPosition: 'top',
+            gradientColors: ['#0DCF6D', '#A9EEC3'],
+            percentTextSize: 30,
+            forceDecimalPointDigit: 1,
             canvasSize: 150,            // canvas宽高大小
             doughnutSize: 12,           // 圆环直径大小
             defaultTextSize: 15,        // 默认文字大小
-            activeTextSize: 25,         // 激活文本大小
+            activeTextSize: 30,         // 激活文本大小
+            activeTextColor: '#181543', // 激活文本颜色
             defaultColor: '#eee',       // 圆环默认颜色
             defaultTextColor: '#ccc',   // 默认文本颜色
-            activeColor: '#13b0df',     // 圆环激活颜色
-            percentage: 88.9083,             // 百分比
+            activeColor: '#1DCB65',     // 圆环激活颜色
+            percentage: 81,             // 百分比
             decimalPointDigit: 0,       // 保留的小数点位数
-            // text: '正确率',              // 文本
+            text: '正确率',              // 文本
             duration: 1500,             // 动画持续时间
             dashWidth: 12,              // (百分比占位符)破折号宽
             dashHeight: 4,              // 破折号高
