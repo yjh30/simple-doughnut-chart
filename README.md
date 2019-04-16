@@ -43,6 +43,11 @@ new DoughnutChart(document.getElementById('canvas'), {
     textPosition: 'top',        // 文本位置，默认为bottom位于百分比下方，可选值(bottom|top)
     gradientColors: [],         // 适用于激活的圆环，圆环线型渐变颜色值，如[red, green]，如果不是空数组将覆盖activeColor配置
     percentTextSize: 0,         // 百分数文字大小，如果该值大于0，将覆盖activeTextSize
+
+    // 1.3.1版本新增配置项
+    percentSymbolTextColor: '', // 百分比符号颜色，如果未设置或者为空，则内部取(percentageColor|activeColor)
+    percentSymbolTextSize: 0,   // 百分比符号字体大小，如果未设置或者0，则内部取(percentTextSize|activeTextSize)
+    percentSymbolTextBaseline: 'middle', // 百分比符号字体基线，默认为'middle'，可选值(top|middle|bottom)
 });
 ```
 

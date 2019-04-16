@@ -40,6 +40,9 @@ function getIeVersion() {
  * @param  {String} options.dashColor 破折号颜色
  * @param  {String} options.textPosition 文本位置，默认为bottom，可选值(bottom|top)
  * @param  {Array} options.gradientColors 圆环线型渐变颜色值，如[red, green]
+ * @param  {String} options.percentSymbolTextColor 百分比符号颜色，如果未设置或者为空，则内部取(percentageColor|activeColor)
+ * @param  {String} options.percentSymbolTextSize 百分比符号字体大小，如果未设置或者0，则内部取(percentTextSize|activeTextSize)
+ * @param  {String} options.percentSymbolTextBaseline 百分比符号字体基线，可选值(top|middle|bottom)
  */
 
 function DoughnutChart(canvas, options) {
@@ -67,7 +70,10 @@ function DoughnutChart(canvas, options) {
     dashLength: 3,
     dashColor: '#eee',
     textPosition: 'bottom',
-    gradientColors: []
+    gradientColors: [],
+    percentSymbolTextColor: '',
+    percentSymbolTextSize: 0,
+    percentSymbolTextBaseline: 'middle'
   };
 
   this.options = extend(this.options, options || {});
@@ -248,7 +254,7 @@ DoughnutChart.prototype = {
   },
 
   /**
-   * 绘制百分比数字
+   * 绘制百分比数字及百分符号
    * @param  {Number} percentage
    * @return {undefined}
    */
@@ -256,10 +262,33 @@ DoughnutChart.prototype = {
     var textSize = this.options.percentTextSize || this.options.activeTextSize;
 
     this.ctx.beginPath();
-    this.ctx.font = textSize + 'px MicrosoftYaHeiUI';
+
     this.ctx.fillStyle = this.options.percentageColor || this.options.activeColor;
+    this.ctx.font = textSize + 'px MicrosoftYaHeiUI';
+    var percentWidth = this.ctx.measureText(percentage).width;
+
+    this.ctx.font = (this.options.percentSymbolTextSize || textSize) + 'px MicrosoftYaHeiUI';
+    var symbolWidth = this.ctx.measureText('%').width;
+
+    this.ctx.font = textSize + 'px MicrosoftYaHeiUI';
     this.ctx.closePath();
-    this.ctx.fillText(percentage + '%', this.radius, this.textVerticalPositions.percent);
+    this.ctx.fillText(percentage, this.radius - symbolWidth / 2, this.textVerticalPositions.percent);
+
+    this.ctx.font = (this.options.percentSymbolTextSize || textSize) + 'px MicrosoftYaHeiUI';
+    this.ctx.fillStyle = this.options.percentSymbolTextColor || this.options.percentageColor || this.options.activeColor;
+
+    var verticalOffset = 0;
+    switch (this.options.percentSymbolTextBaseline) {
+      case 'top':
+        verticalOffset -= symbolWidth / 4;
+        break;
+      case 'bottom':
+        verticalOffset += symbolWidth / 4;
+        break;
+      default:
+        break;
+    }
+    this.ctx.fillText('%', this.radius + percentWidth / 2, this.textVerticalPositions.percent + verticalOffset);
   },
 
   /**
