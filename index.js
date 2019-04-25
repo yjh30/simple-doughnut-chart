@@ -90,7 +90,7 @@ DoughnutChart.prototype = {
    * 获取标题文本，百分比文本绘制的垂直位置
    * @return {Object}
    */
-  getTextVerticalPositions() {
+  getTextVerticalPositions: function() {
     var titlePos = this.radius;
     var percentPos = this.radius;
     var textSize = this.options.percentTextSize || this.options.activeTextSize;
