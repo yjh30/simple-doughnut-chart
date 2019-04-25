@@ -1,6 +1,6 @@
 {
   "name": "simple-doughnut-chart",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "doughnut chart",
   "main": "index.js",
   "scripts": {
